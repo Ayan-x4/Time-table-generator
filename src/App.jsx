@@ -5,7 +5,7 @@ import Body from './components/Body'
 
 const App = () => {
   return (
-    <div>
+    <div className='overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
     <Body/>
     </div>
   )

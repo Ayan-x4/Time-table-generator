@@ -2,8 +2,8 @@ import React from "react";
 
 const Input = () => {
   return (
-    <div className="h-full bg-[#1A2438] md:w-[95%] w-full rounded-2xl border-1 flex-col md:p-5 px-2 ">
-      <div className="md:h-full   md:rounded-[0] rounded-xl  md:mb-0 mb-4   ">
+    <div className="h-full md:bg-[#1A2438] bg-[#0A0F1B] md:w-[95%] w-full md:rounded-2xl border-1 flex-col md:p-6 p-2 px-3 ">
+      <div className="md:h-full   md:rounded-[0] rounded-xl  md:mb-0 mb-4  md:block hidden ">
         <div className="text-white flex gap-2 items-center mb-6">
           <span>
             <svg
@@ -223,7 +223,96 @@ const Input = () => {
           <h1 className="text-md font-semibold">+ Add Subject</h1>
         </button>
       </div>
-      <div className="h-[200px] md:hidden  bg-[#374c76]  rounded-xl md:mb-0 mb-4  "></div>
+      <div className="h-[210px] md:hidden  bg-[#1A2438]  rounded-xl md:mb-0 mb-4 p-5  ">
+         <div className="text-white flex gap-2 items-center mt-2 mb-8">
+          <span>
+            <svg
+              className="h-8"
+              viewBox="0 0 32 32"
+              data-name="Layer 1"
+              id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#7F7FF1"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <defs>
+                  <style></style>
+                </defs>
+                <title></title>
+                <path
+                  class="cls-1"
+                  d="M22,27a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5A1,1,0,0,1,5,4h9.76L15,4V8a3,3,0,0,0,3,3l2-2H18a1,1,0,0,1-1-1V5.41L20.29,8.7l.89-.89.52-.52L17.59,3.17A4,4,0,0,0,14.76,2H5A3,3,0,0,0,2,5V27a3,3,0,0,0,3,3H21a3,3,0,0,0,3-3V19.42l-2,2Z"
+                ></path>
+                <path
+                  class="cls-1"
+                  d="M29,7.24a2.86,2.86,0,0,0-4.39,0l-2,2L14.11,17.7a6.09,6.09,0,0,0-.93,1.23L10.69,24H7a1,1,0,0,0,0,2h4a1,1,0,0,0,.67-.27.58.58,0,0,0,.18,0L17.36,23a5.87,5.87,0,0,0,1.14-.9l.56-.55h0L27,13.62l2-2a3.07,3.07,0,0,0,1-2.19A3.11,3.11,0,0,0,29,7.24ZM16.67,21l-.27.19-2.8,1.38,1.33-2.73a3.88,3.88,0,0,1,.47-.6l.61.61.92.93Zm1.69-1.63-.78-.77-.78-.79,6.5-6.5,1.56,1.56Zm9.19-9.19L26.27,11.5,24.71,9.93,26,8.66a1.29,1.29,0,0,1,.78-.45,1.31,1.31,0,0,1,.78.45,1.34,1.34,0,0,1,.45.78A1.37,1.37,0,0,1,27.55,10.22Z"
+                ></path>
+              </g>
+            </svg>
+          </span>
+          <h1 className="text-2xl font-medium">Input Details</h1>
+        </div>
+        
+          <h3 className="text-xl text-gray-200 font-md mb-2 ">Semester</h3>
+          <div className="flex text-white justify-between items-center relative">
+          <select className="border-gray-600 border w-full bg-[#141e30] px-3 py-3 rounded-md outline-none appearance-none  ">
+            <option className="text-white">Choose Semester</option>
+            <option value="Semester-1" className="text-white">
+              Semester-1
+            </option>
+            <option value="Semester-2" className="text-white">
+              Semester-3
+            </option>
+            <option value="Semester-4" className="text-white">
+              Semester-4
+            </option>
+            <option value="Semester-5" className="text-white">
+              Semester-5
+            </option>
+            <option value="Semester-6" className="text-white">
+              Semester-6
+            </option>
+            <option value="Semester-7" className="text-white">
+              Semester-7
+            </option>
+            <option value="Semester-8" className="text-white">
+              Semester-8
+            </option>
+          </select>
+          <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white">
+            <svg
+              className="h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              stroke="#ffffff"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  d="M7 10L12 15L17 10"
+                  stroke="#ffffff"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>{" "}
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
       <div className="h-[500px] md:hidden bg-[#374c76]  rounded-xl md:mb-0 mb-4  "></div>
       <div className="h-[600px] md:hidden bg-[#374c76]  rounded-xl md:mb-0 mb-4  "></div>
       <div className="h-[60px] md:hidden  bg-[#7F7FF1]  rounded-xl md:mb-0 mb-4  "></div>

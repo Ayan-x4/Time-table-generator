@@ -16,7 +16,7 @@ const Table = () => {
           <div className="flex gap-5">
             <div className="border flex items-center gap-1 rounded-md border-gray-600">
               <IoCalendarClearOutline className="text-white pl-2 w-full" />
-              <select className="text-white py-1 mr-2 outline-none">
+              <select className="text-white bg-[#1A2438] py-1 mr-2 outline-none">
                 <option value="">All Days</option>
                 <option value="">Monday</option>
                 <option value="">Tuesday</option>
