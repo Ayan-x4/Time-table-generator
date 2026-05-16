@@ -171,11 +171,11 @@ const Input = () => {
             ></input>
           </div>
         </div>
-        <div className="mt-5 flex  items-center gap-10">
-          <div className="text-white font-semibold text-sm  ">
+        <div className="mt-5 flex  items-center justify-between  gap-2">
+          <div className="text-white font-semibold text-sm  w-[12rem] ">
             <h1 className="mb-2">Day</h1>
             <div>
-              <select className="border-gray-600 border w-[160%] h-10 bg-[#141e30] px-5  py-1 rounded-md outline-none appearance-none  ">
+              <select className="border-gray-600 border w-full h-10 bg-[#141e30] px-5  py-1 rounded-md outline-none appearance-none  ">
                 <option value="Semester-1" className="text-white">
                   Monday
                 </option>
@@ -201,13 +201,13 @@ const Input = () => {
             </div>
           </div>
 
-          <div className="px-10 ">
+          <div className=" ">
             <div className="text-white font-semibold text-sm  ">
               <h1 className="mb-2 ">Start time</h1>
 
               <input
                 type="time"
-                className="border-gray-600 border w-[162%] h-10 bg-[#141e30] px-2 py-1 rounded-md outline-none appearance-none text-white  [color-scheme:dark] "
+                className="border-gray-600 border w-[10rem] h-10 bg-[#141e30] px-2 py-1 rounded-md outline-none appearance-none text-white  [color-scheme:dark] "
               ></input>
             </div>
           </div>
