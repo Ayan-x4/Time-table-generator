@@ -115,12 +115,12 @@ const Table = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-[#a61cf1]  flex justify-center items-center opacity-50  h-15 rounded-full w-15 ">
+          <div className="bg-[#ab1ef7]  flex justify-center items-center opacity-60  h-15 rounded-full w-15 ">
           
           <BiExport className="w-10 z-10 h-10 text-[#e1b6ff]"  />
           </div>
           <div>
-            <h1 className="text-[#a73be1] mb-1 text-md font-bold">Export options</h1>
+            <h1 className="text-[#b944f9f5] mb-1 text-md font-bold">Export options</h1>
             <p className="text-gray-300 text-sm">Export your timetable as pdfs,<br />image or print</p>
           </div>
         </div>
