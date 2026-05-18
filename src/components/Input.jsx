@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addsubject } from "../counterSlice";
 
 const Input = () => {
+  const formatTime = (time) => {
+    const [hour, minute] = time.split(":");
+
+    const date = new Date();
+    date.setHours(hour, minute);
+
+    return date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+  const dispatch = useDispatch()
+  const [semester, setSemester] = useState("");
+  const [subject, setSubject] = useState("");
+  const [teacher, setTeacher] = useState("");
+  const [room, setRoom] = useState("");
+  const [day, setDay] = useState("");
+  const [starttime, setStarttime] = useState("");
+  const [endtime, setEndtime] = useState("");
+  const addinfo = () => {
+
+    const inputs = {
+      semester, subject, room, day, starttime, endtime,
+    }
+      dispatch(addsubject(inputs));
+
+  };
+
+
   return (
     <div className="h-full md:bg-[#1A2438] bg-[#0A0F1B] md:w-[95%] w-full md:rounded-2xl border-1 flex-col md:p-6 p-2 px-3 ">
       <div className="md:h-full   md:rounded-[0] rounded-xl  md:mb-0 mb-4  md:block hidden ">
@@ -40,8 +72,15 @@ const Input = () => {
         </div>
         <div className="flex text-white justify-between items-center relative">
           <h3 className="text-sm text-gray-200 font-semibold">Semester</h3>
-          <select className="border-gray-600 border w-[60%] bg-[#141e30] px-2 py-1 rounded-md outline-none appearance-none  ">
-            <option className="text-white">Choose Semester</option>
+          <select
+            onChange={(e) => {
+              setSemester(e.target.value);
+            }}
+            className="border-gray-600 border w-[60%] bg-[#141e30] px-2 py-1 rounded-md outline-none appearance-none  "
+          >
+            <option value="" className="text-white">
+              Choose Semester
+            </option>
             <option value="Semester-1" className="text-white">
               Semester-1
             </option>
@@ -147,6 +186,9 @@ const Input = () => {
               Subject Name
             </h1>
             <input
+              onChange={(e) => {
+                setSubject(e.target.value);
+              }}
               type="text"
               placeholder="e.g Data Structure"
               className="w-[60%] p-2 border border-gray-600 rounded-sm bg-[#141e30] outline-none"
@@ -157,6 +199,9 @@ const Input = () => {
               Teacher Name
             </h1>
             <input
+              onChange={(e) => {
+                setTeacher(e.target.value);
+              }}
               type="text"
               placeholder="e.g Md.Ayan"
               className="w-[60%] p-2 border border-gray-600 rounded-sm bg-[#141e30] outline-none"
@@ -165,6 +210,9 @@ const Input = () => {
           <div className="mt-5 flex items-center justify-between">
             <h1 className="text-sm font-semibold text-gray-200">Class Room</h1>
             <input
+              onChange={(e) => {
+                setRoom(e.target.value);
+              }}
               type="text"
               placeholder="e.g A-103"
               className="w-[60%] p-2 border border-gray-600 rounded-sm bg-[#141e30] outline-none"
@@ -175,26 +223,31 @@ const Input = () => {
           <div className="text-white font-semibold text-sm  w-[12rem] ">
             <h1 className="mb-2">Day</h1>
             <div>
-              <select className="border-gray-600 border w-full h-10 bg-[#141e30] px-5  py-1 rounded-md outline-none appearance-none  ">
-                <option value="Semester-1" className="text-white">
+              <select
+                onChange={(e) => {
+                  setDay(e.target.value);
+                }}
+                className="border-gray-600 border w-full h-10 bg-[#141e30] px-5  py-1 rounded-md outline-none appearance-none  "
+              >
+                <option value="Monday" className="text-white">
                   Monday
                 </option>
-                <option value="Semester-2" className="text-white">
+                <option value="Tuesday" className="text-white">
                   Tuesday
                 </option>
-                <option value="Semester-4" className="text-white">
+                <option value="Wednesday" className="text-white">
                   Wednesday
                 </option>
-                <option value="Semester-5" className="text-white">
+                <option value="Thursday" className="text-white">
                   Thursday
                 </option>
-                <option value="Semester-6" className="text-white">
+                <option value="Friday" className="text-white">
                   Friday
                 </option>
-                <option value="Semester-7" className="text-white">
+                <option value="Saturday" className="text-white">
                   Saturday
                 </option>
-                <option value="Semester-8" className="text-white">
+                <option value="Sunday" className="text-white">
                   Sunday
                 </option>
               </select>
@@ -206,6 +259,11 @@ const Input = () => {
               <h1 className="mb-2 ">Start time</h1>
 
               <input
+                onChange={(e) => {
+                  const formatted = formatTime(e.target.value);
+
+                  setStarttime(formatted);
+                }}
                 type="time"
                 className="border-gray-600 border w-[10rem] h-10 bg-[#141e30] px-2 py-1 rounded-md outline-none appearance-none text-white  [color-scheme:dark] "
               ></input>
@@ -215,11 +273,18 @@ const Input = () => {
         <div className="text-white font-semibold text-sm mb-4 ">
           <h1 className="mb-2 mt-4 ">End time</h1>
           <input
+            onChange={(e) => {
+              const formatted = formatTime(e.target.value);
+
+              setEndtime(formatted);
+            }}
             type="time"
             className="border-gray-600 border w-[100%] h-10 bg-[#141e30] px-2 py-1 rounded-md outline-none appearance-none text-white  [color-scheme:dark]  "
           ></input>
         </div>
-        <button className="w-[100%] bg-[#575AEE] h-10 rounded-sm items-center text-white ">
+        <button onClick={()=>{
+          addinfo()
+        }} className="w-[100%] bg-[#575AEE] h-10 rounded-sm items-center text-white ">
           <h1 className="text-md font-semibold">+ Add Subject</h1>
         </button>
       </div>
@@ -483,28 +548,122 @@ const Input = () => {
         </div>
       </div>
 
-
-
-      
       <div className="h-[600px] md:hidden bg-[#1A2438]  rounded-xl md:mb-0 mb-4 border border-gray-600 "></div>
 
-
-
       <div className="h-[55px] flex md:hidden items-center justify-center bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 text-xl font-medium gap-2 rounded-xl md:mb-0 mb-4 text-white border border-gray-600  ">
-        <span><svg className='h-5 w-5' fill="#ffffff" width="18px" height="18px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7zM378.2 732.5l60.3-241H281.1l189.6-327.4h224.6L487 427.4h211L378.2 732.5z"></path> </g></svg></span>
-         Generate Time Table
+        <span>
+          <svg
+            className="h-5 w-5"
+            fill="#ffffff"
+            width="18px"
+            height="18px"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            stroke="#ffffff"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <path d="M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7zM378.2 732.5l60.3-241H281.1l189.6-327.4h224.6L487 427.4h211L378.2 732.5z"></path>{" "}
+            </g>
+          </svg>
+        </span>
+        Generate Time Table
       </div>
       <div className="h-[65px]  md:hidden  bg-[#1A2438]  rounded-xl md:mb-0 mb-6 flex items-center justify-between border border-gray-600">
-        <span className="text-xl flex items-center justify-center text-white gap-4 ml-4 "><svg className="h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#C061FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#00EAFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>Export Option</span>
+        <span className="text-xl flex items-center justify-center text-white gap-4 ml-4 ">
+          <svg
+            className="h-7"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <path
+                d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"
+                stroke="#C061FF"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>{" "}
+              <path
+                d="M12 3V16M12 16L16 11.625M12 16L8 11.625"
+                stroke="#00EAFC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>{" "}
+            </g>
+          </svg>
+          Export Option
+        </span>
         <div>
-        <span><svg className="h-3 mr-4" viewBox="-4.5 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>arrow_right [#ffffff]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-425.000000, -6679.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M370.39,6519 L369,6520.406 L377.261,6529.013 L376.38,6529.931 L376.385,6529.926 L369.045,6537.573 L370.414,6539 C372.443,6536.887 378.107,6530.986 380,6529.013 C378.594,6527.547 379.965,6528.976 370.39,6519" id="arrow_right-[#ffffff]"> </path> </g> </g> </g> </g></svg></span>
-
+          <span>
+            <svg
+              className="h-3 mr-4"
+              viewBox="-4.5 0 20 20"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <title>arrow_right [#ffffff]</title>{" "}
+                <desc>Created with Sketch.</desc> <defs> </defs>{" "}
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  {" "}
+                  <g
+                    id="Dribbble-Light-Preview"
+                    transform="translate(-425.000000, -6679.000000)"
+                    fill="#ffffff"
+                  >
+                    {" "}
+                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                      {" "}
+                      <path
+                        d="M370.39,6519 L369,6520.406 L377.261,6529.013 L376.38,6529.931 L376.385,6529.926 L369.045,6537.573 L370.414,6539 C372.443,6536.887 378.107,6530.986 380,6529.013 C378.594,6527.547 379.965,6528.976 370.39,6519"
+                        id="arrow_right-[#ffffff]"
+                      >
+                        {" "}
+                      </path>{" "}
+                    </g>{" "}
+                  </g>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          </span>
         </div>
       </div>
       <div className="h-[100px] md:hidden  bg-[#1A2438] flex gap-2 items-center justify-around rounded-xl md:mb-0 border border-gray-600 ">
         <div className="h-22 w-24 rounded-xl bg-[#202b43] flex flex-col justify-center items-center gap-1">
-           <span>
-            <svg 
+          <span>
+            <svg
               className="h-8"
               viewBox="0 0 32 32"
               data-name="Layer 1"
@@ -534,18 +693,100 @@ const Input = () => {
               </g>
             </svg>
           </span>
-           <h1 className="text-white font-normal">Inputs</h1>
+          <h1 className="text-white font-normal">Inputs</h1>
         </div>
         <div className="h-22 w-24 rounded-xl  flex flex-col justify-center items-center gap-1 ">
-          <span><svg className="h-8" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" fill="#F5F5F5"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <style></style> </defs> <g data-name="calendar date" id="calendar_date"> <path class="cls-1" d="M22.5,3H21V2a1,1,0,0,0-1-1H19a1,1,0,0,0-1,1V3H14V2a1,1,0,0,0-1-1H12a1,1,0,0,0-1,1V3H7V2A1,1,0,0,0,6,1H5A1,1,0,0,0,4,2V3H2.5A1.5,1.5,0,0,0,1,4.5v18A1.5,1.5,0,0,0,2.5,24h20A1.5,1.5,0,0,0,24,22.5V4.5A1.5,1.5,0,0,0,22.5,3ZM19,2l1,0,0,3L19,5ZM12,2l1,0V3.44s0,0,0,.06,0,0,0,.07L13,5,12,5ZM5,2,6,2,6,5,5,5ZM2.5,4H4V5A1,1,0,0,0,5,6H6A1,1,0,0,0,7,5V4h4V5a1,1,0,0,0,1,1H13a1,1,0,0,0,1-1V4h4V5a1,1,0,0,0,1,1H20a1,1,0,0,0,1-1V4h1.5a.5.5,0,0,1,.5.5V8H2V4.5A.5.5,0,0,1,2.5,4Zm20,19H2.5a.5.5,0,0,1-.5-.5V9H23V22.5A.5.5,0,0,1,22.5,23Z"></path> <path class="cls-1" d="M20.5,15h-6a.5.5,0,0,0-.5.5v5a.5.5,0,0,0,.5.5h6a.5.5,0,0,0,.5-.5v-5A.5.5,0,0,0,20.5,15ZM20,20H15V16h5Z"></path> <path class="cls-1" d="M6.5,11h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,6.5,11ZM6,13H5V12H6Z"></path> <path class="cls-1" d="M10.5,11h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,10.5,11ZM10,13H9V12h1Z"></path> <path class="cls-1" d="M6.5,16h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,6.5,16ZM6,18H5V17H6Z"></path> <path class="cls-1" d="M10.5,16h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,10.5,16ZM10,18H9V17h1Z"></path> <path class="cls-1" d="M14.5,14h2a.5.5,0,0,0,.5-.5v-2a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5v2A.5.5,0,0,0,14.5,14Zm.5-2h1v1H15Z"></path> <path class="cls-1" d="M20.5,11h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,20.5,11ZM20,13H19V12h1Z"></path> </g> </g></svg></span>
+          <span>
+            <svg
+              className="h-8"
+              viewBox="0 0 25 25"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#F5F5F5"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <defs>
+                  {" "}
+                  <style></style>{" "}
+                </defs>{" "}
+                <g data-name="calendar date" id="calendar_date">
+                  {" "}
+                  <path
+                    class="cls-1"
+                    d="M22.5,3H21V2a1,1,0,0,0-1-1H19a1,1,0,0,0-1,1V3H14V2a1,1,0,0,0-1-1H12a1,1,0,0,0-1,1V3H7V2A1,1,0,0,0,6,1H5A1,1,0,0,0,4,2V3H2.5A1.5,1.5,0,0,0,1,4.5v18A1.5,1.5,0,0,0,2.5,24h20A1.5,1.5,0,0,0,24,22.5V4.5A1.5,1.5,0,0,0,22.5,3ZM19,2l1,0,0,3L19,5ZM12,2l1,0V3.44s0,0,0,.06,0,0,0,.07L13,5,12,5ZM5,2,6,2,6,5,5,5ZM2.5,4H4V5A1,1,0,0,0,5,6H6A1,1,0,0,0,7,5V4h4V5a1,1,0,0,0,1,1H13a1,1,0,0,0,1-1V4h4V5a1,1,0,0,0,1,1H20a1,1,0,0,0,1-1V4h1.5a.5.5,0,0,1,.5.5V8H2V4.5A.5.5,0,0,1,2.5,4Zm20,19H2.5a.5.5,0,0,1-.5-.5V9H23V22.5A.5.5,0,0,1,22.5,23Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M20.5,15h-6a.5.5,0,0,0-.5.5v5a.5.5,0,0,0,.5.5h6a.5.5,0,0,0,.5-.5v-5A.5.5,0,0,0,20.5,15ZM20,20H15V16h5Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M6.5,11h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,6.5,11ZM6,13H5V12H6Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M10.5,11h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,10.5,11ZM10,13H9V12h1Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M6.5,16h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,6.5,16ZM6,18H5V17H6Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M10.5,16h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,10.5,16ZM10,18H9V17h1Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M14.5,14h2a.5.5,0,0,0,.5-.5v-2a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5v2A.5.5,0,0,0,14.5,14Zm.5-2h1v1H15Z"
+                  ></path>{" "}
+                  <path
+                    class="cls-1"
+                    d="M20.5,11h-2a.5.5,0,0,0-.5.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,20.5,11ZM20,13H19V12h1Z"
+                  ></path>{" "}
+                </g>{" "}
+              </g>
+            </svg>
+          </span>
           <h1 className="text-white normal">Timetable</h1>
         </div>
         <div className="h-22 w-24 rounded-xl flex flex-col justify-center items-center  gap-1">
-        <span>
-          <svg className="h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="12" r="3" stroke="#F5F5F5" stroke-width="1.5"></circle> <path d="M13.7654 2.15224C13.3978 2 12.9319 2 12 2C11.0681 2 10.6022 2 10.2346 2.15224C9.74457 2.35523 9.35522 2.74458 9.15223 3.23463C9.05957 3.45834 9.0233 3.7185 9.00911 4.09799C8.98826 4.65568 8.70226 5.17189 8.21894 5.45093C7.73564 5.72996 7.14559 5.71954 6.65219 5.45876C6.31645 5.2813 6.07301 5.18262 5.83294 5.15102C5.30704 5.08178 4.77518 5.22429 4.35436 5.5472C4.03874 5.78938 3.80577 6.1929 3.33983 6.99993C2.87389 7.80697 2.64092 8.21048 2.58899 8.60491C2.51976 9.1308 2.66227 9.66266 2.98518 10.0835C3.13256 10.2756 3.3397 10.437 3.66119 10.639C4.1338 10.936 4.43789 11.4419 4.43786 12C4.43783 12.5581 4.13375 13.0639 3.66118 13.3608C3.33965 13.5629 3.13248 13.7244 2.98508 13.9165C2.66217 14.3373 2.51966 14.8691 2.5889 15.395C2.64082 15.7894 2.87379 16.193 3.33973 17C3.80568 17.807 4.03865 18.2106 4.35426 18.4527C4.77508 18.7756 5.30694 18.9181 5.83284 18.8489C6.07289 18.8173 6.31632 18.7186 6.65204 18.5412C7.14547 18.2804 7.73556 18.27 8.2189 18.549C8.70224 18.8281 8.98826 19.3443 9.00911 19.9021C9.02331 20.2815 9.05957 20.5417 9.15223 20.7654C9.35522 21.2554 9.74457 21.6448 10.2346 21.8478C10.6022 22 11.0681 22 12 22C12.9319 22 13.3978 22 13.7654 21.8478C14.2554 21.6448 14.6448 21.2554 14.8477 20.7654C14.9404 20.5417 14.9767 20.2815 14.9909 19.902C15.0117 19.3443 15.2977 18.8281 15.781 18.549C16.2643 18.2699 16.8544 18.2804 17.3479 18.5412C17.6836 18.7186 17.927 18.8172 18.167 18.8488C18.6929 18.9181 19.2248 18.7756 19.6456 18.4527C19.9612 18.2105 20.1942 17.807 20.6601 16.9999C21.1261 16.1929 21.3591 15.7894 21.411 15.395C21.4802 14.8691 21.3377 14.3372 21.0148 13.9164C20.8674 13.7243 20.6602 13.5628 20.3387 13.3608C19.8662 13.0639 19.5621 12.558 19.5621 11.9999C19.5621 11.4418 19.8662 10.9361 20.3387 10.6392C20.6603 10.4371 20.8675 10.2757 21.0149 10.0835C21.3378 9.66273 21.4803 9.13087 21.4111 8.60497C21.3592 8.21055 21.1262 7.80703 20.6602 7C20.1943 6.19297 19.9613 5.78945 19.6457 5.54727C19.2249 5.22436 18.693 5.08185 18.1671 5.15109C17.9271 5.18269 17.6837 5.28136 17.3479 5.4588C16.8545 5.71959 16.2644 5.73002 15.7811 5.45096C15.2977 5.17191 15.0117 4.65566 14.9909 4.09794C14.9767 3.71848 14.9404 3.45833 14.8477 3.23463C14.6448 2.74458 14.2554 2.35523 13.7654 2.15224Z" stroke="#F5F5F5" stroke-width="1.5"></path> </g></svg>
-        </span>
-         <h1 className="text-white normal">Settings</h1>
-
+          <span>
+            <svg
+              className="h-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                  stroke="#F5F5F5"
+                  stroke-width="1.5"
+                ></circle>{" "}
+                <path
+                  d="M13.7654 2.15224C13.3978 2 12.9319 2 12 2C11.0681 2 10.6022 2 10.2346 2.15224C9.74457 2.35523 9.35522 2.74458 9.15223 3.23463C9.05957 3.45834 9.0233 3.7185 9.00911 4.09799C8.98826 4.65568 8.70226 5.17189 8.21894 5.45093C7.73564 5.72996 7.14559 5.71954 6.65219 5.45876C6.31645 5.2813 6.07301 5.18262 5.83294 5.15102C5.30704 5.08178 4.77518 5.22429 4.35436 5.5472C4.03874 5.78938 3.80577 6.1929 3.33983 6.99993C2.87389 7.80697 2.64092 8.21048 2.58899 8.60491C2.51976 9.1308 2.66227 9.66266 2.98518 10.0835C3.13256 10.2756 3.3397 10.437 3.66119 10.639C4.1338 10.936 4.43789 11.4419 4.43786 12C4.43783 12.5581 4.13375 13.0639 3.66118 13.3608C3.33965 13.5629 3.13248 13.7244 2.98508 13.9165C2.66217 14.3373 2.51966 14.8691 2.5889 15.395C2.64082 15.7894 2.87379 16.193 3.33973 17C3.80568 17.807 4.03865 18.2106 4.35426 18.4527C4.77508 18.7756 5.30694 18.9181 5.83284 18.8489C6.07289 18.8173 6.31632 18.7186 6.65204 18.5412C7.14547 18.2804 7.73556 18.27 8.2189 18.549C8.70224 18.8281 8.98826 19.3443 9.00911 19.9021C9.02331 20.2815 9.05957 20.5417 9.15223 20.7654C9.35522 21.2554 9.74457 21.6448 10.2346 21.8478C10.6022 22 11.0681 22 12 22C12.9319 22 13.3978 22 13.7654 21.8478C14.2554 21.6448 14.6448 21.2554 14.8477 20.7654C14.9404 20.5417 14.9767 20.2815 14.9909 19.902C15.0117 19.3443 15.2977 18.8281 15.781 18.549C16.2643 18.2699 16.8544 18.2804 17.3479 18.5412C17.6836 18.7186 17.927 18.8172 18.167 18.8488C18.6929 18.9181 19.2248 18.7756 19.6456 18.4527C19.9612 18.2105 20.1942 17.807 20.6601 16.9999C21.1261 16.1929 21.3591 15.7894 21.411 15.395C21.4802 14.8691 21.3377 14.3372 21.0148 13.9164C20.8674 13.7243 20.6602 13.5628 20.3387 13.3608C19.8662 13.0639 19.5621 12.558 19.5621 11.9999C19.5621 11.4418 19.8662 10.9361 20.3387 10.6392C20.6603 10.4371 20.8675 10.2757 21.0149 10.0835C21.3378 9.66273 21.4803 9.13087 21.4111 8.60497C21.3592 8.21055 21.1262 7.80703 20.6602 7C20.1943 6.19297 19.9613 5.78945 19.6457 5.54727C19.2249 5.22436 18.693 5.08185 18.1671 5.15109C17.9271 5.18269 17.6837 5.28136 17.3479 5.4588C16.8545 5.71959 16.2644 5.73002 15.7811 5.45096C15.2977 5.17191 15.0117 4.65566 14.9909 4.09794C14.9767 3.71848 14.9404 3.45833 14.8477 3.23463C14.6448 2.74458 14.2554 2.35523 13.7654 2.15224Z"
+                  stroke="#F5F5F5"
+                  stroke-width="1.5"
+                ></path>{" "}
+              </g>
+            </svg>
+          </span>
+          <h1 className="text-white normal">Settings</h1>
         </div>
       </div>
     </div>

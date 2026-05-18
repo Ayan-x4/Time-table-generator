@@ -5,7 +5,9 @@ import { RiImageCircleAiLine } from "react-icons/ri";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { BiExport } from "react-icons/bi";
 const Table = () => {
+   const information =  useSelector((store)=>store.subject)
   return (
+  
     <div className="w-full flex-col mr-100 md:block hidden">
       <div className="py-3 px-5 h-[530px]   bg-[#1A2438] rounded-2xl mb-4 border-1 ">
         <section className="flex justify-between">
